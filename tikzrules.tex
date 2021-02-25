@@ -1,5 +1,7 @@
 % chktex-file 1
 % chktex-file 8
+\newcommand{\roleicon}[1]{\includegraphics[height=4ex]{#1.png}}
+
 \tikzset{arena/.style =
         {
             very thick,
@@ -105,6 +107,7 @@
             very thick,
             draw=black,
             fill=black!50,
+            fill opacity=0.75,
             minimum size=0.5cm
         }
 }
@@ -145,5 +148,74 @@
             text=black,
             text opacity=1,
             draw
+        }
+}
+
+\tikzset{o-bomb/.style =
+        {
+            shape=regular polygon,
+            regular polygon sides=4,
+            very thick,
+            orange,
+            fill=orange!50,
+            fill opacity=0.50,
+            minimum size=0.75cm,
+            draw
+        }
+}
+
+\tikzset{o-aoe/.style =
+        {
+            thick,
+            orange,
+            fill=orange!50,
+            opacity=0.25,
+            draw opacity=1
+        }
+}
+
+\tikzset{y-bomb/.style =
+        {
+            shape=regular polygon,
+            regular polygon sides=3,
+            very thick,
+            yellow,
+            fill=yellow!50,
+            fill opacity=0.50,
+            minimum size=0.75cm,
+            draw
+        }
+}
+
+\tikzset{y-aoe/.style =
+        {
+            thick,
+            yellow,
+            fill=yellow!50,
+            opacity=0.25,
+            draw opacity=1
+        }
+}
+
+\tikzset{b-bomb/.style =
+        {
+            shape=regular polygon,
+            regular polygon sides=3,
+            very thick,
+            blue,
+            fill=blue!50,
+            fill opacity=0.50,
+            minimum size=0.75cm,
+            draw
+        }
+}
+
+\tikzset{b-aoe/.style =
+        {
+            thick,
+            blue,
+            fill=blue!50,
+            opacity=0.25,
+            draw opacity=1
         }
 }
