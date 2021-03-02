@@ -1,28 +1,5 @@
-\documentclass{article}
-\usepackage{geometry}
-\usepackage[section]{placeins}
-\usepackage{varioref}
-\usepackage{titlesec}
-
-\geometry{letterpaper,margin=1in}
-
-\usepackage{tikz}
-\usetikzlibrary{
-    positioning,
-    backgrounds,
-	shapes.geometric,
-    patterns.meta,
-    arrows.meta,
-	decorations.pathreplacing,
-    bending
-    }
-
-\begin{document}
-
-\title{Eden's Promise: Eternity (Savage)\\\emph{Junction Shiva}}
-\author{}
-\maketitle
-
+% !TeX root = ./raidtools-o12s.tex
+\chapter{Junction Shiva}
 \section{Initial positioning}
 \newcommand{\sectionbreak}{\clearpage}
 The party splits up into the usual tank-healer-DPS-DPS groups.  Healer 1's group (G1) will tend slightly southeast of the boss, and Healer 2's group (G2) will be opposite them to the northwest (figure \vref{initpos}).  In the next step of the mechanic, the inner circle and six of the outer circles will be marked with AOEs.  Each group will go to the safe spot on their side of the dotted line.
@@ -30,7 +7,6 @@ The party splits up into the usual tank-healer-DPS-DPS groups.  Healer 1's group
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style=[transform shape]]
-		\input{tikzrules.tex}
 		\node[boss] (boss) at (0,0) {B};
 
 		\node[heal, below right=0cm of boss] (h1) {1};
@@ -76,7 +52,6 @@ In this example, the safe spots are at 2 and 4, but they can be at any pair of l
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -127,7 +102,6 @@ The platform remains frozen.  All the current AOEs resolve and the final two cir
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -191,7 +165,6 @@ The Deep Freeze effect ends, making it possible to move without sliding again.  
 \begin{figure}[hbt!]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -255,7 +228,6 @@ The Deep Freeze effect ends, making it possible to move without sliding again.  
 \begin{figure}
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -337,7 +309,6 @@ Once all the current AOEs are resolved, all players move to the center of the ar
 \begin{figure}[h]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -417,10 +388,9 @@ Once all the current AOEs are resolved, all players move to the center of the ar
 
 After the final two AOEs resolve, players move to the outside of the arena.  There is enough time for players to adjust to make sure that they are not in the path of other tethered icicles, or that their icicles do not hit other players.  After the tethers resolve, this completes the \emph{Junction Shiva} phase.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
-		\input{tikzrules.tex}
 		\foreach \letter / \ang / \rad / \c in
 			{A/90/3.5/red,
 				D/180/3.5/purple,
@@ -498,5 +468,3 @@ After the final two AOEs resolve, players move to the outside of the arena.  The
 	\caption{Players move to the outside edge of the arena and adjust so that everybody is hit by only one icicle}
 	\label{resolve}
 \end{figure}
-
-\end{document}

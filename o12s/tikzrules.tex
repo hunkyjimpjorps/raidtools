@@ -62,6 +62,18 @@
         }
 }
 
+\tikzset{stack aoe/.pic = {
+            \draw [ultra thick, orange, opacity=0.75] (0,0) circle [radius=#1];
+
+            \begin{scope}[every path/.style = {tips, orange,
+                opacity=0.5,
+                {Fast Triangle[] Fast Triangle[]}-,
+                line width=0.5cm}]                ]
+                \foreach \ang in {0, 90, 180, 270}
+                \path (\ang:#1) ([turn]-0.5cm,0) -- ([turn]0.25cm, 0);
+            \end{scope}
+        }
+}
 \tikzset{boss/.style =
         {
             shape=circle,
@@ -129,12 +141,12 @@
 }
 
 \tikzset{tether/.style = {
-        line width=2pt,
-        purple,
-        dotted,
-        -Latex,
-        text=black
-    }
+            line width=2pt,
+            purple,
+            dotted,
+            -Latex,
+            text=black
+        }
 }
 
 \tikzset{icicle/.style =

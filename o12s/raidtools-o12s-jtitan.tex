@@ -1,0 +1,200 @@
+% !TeX root = ./raidtools-o12s.tex
+
+\chapter{Junction Titan}
+\section{Definitions}
+
+The player markers in this phase are the same as the ones in \emph{Eden's Gate: Sepultre} (O4S):
+
+\begin{description}
+    \item [Blue pyramids] detonate the current area and all neighboring areas.
+    \item [Yellow pyramids] detonate the current area.
+    \item [Orange cubes] detonate the current area, sharing damage between all other players with the orange cube marker in the same area.  At least two players are needed to split the incoming damage.
+\end{description}
+
+All effects apply a magic damage vulnerability debuff, so no player can be hit by more than one effect.
+Every area contains one bomb boulder that will be destroyed when the area is detonated.  If any area is not detonated by a player's marker effect, the bomb boulder explodes and wipes the raid.
+
+\section{First arrangement}
+
+The first arrangement requires the placement of three yellow markers, four orange markers, and one blue marker.  In this arrangement, tanks and healers do not get the blue marker.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.4]
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \foreach \ang in {0, 45,...,315}
+            {
+                \coordinate (circle-\ang) at (\ang:3.5);
+                \coordinate (marker-\ang) at (\ang:3);
+            }
+        \coordinate (circle-center) at (0,0);
+
+        \begin{scope}[on background layer]
+            \draw[arena] (0,0) circle [radius=4];
+        \end{scope}
+
+        \begin{scope}
+            \clip (0,0) circle [radius=4];
+
+            \foreach \ang in {45, 90, 135}
+                {
+                    \node [y-bomb] at (marker-\ang) {};
+                    \draw [y-aoe] (circle-\ang) circle [radius=2];
+                }
+
+            \foreach \ang in {0,180}
+                {
+                    \node [o-bomb, left=0.1cm of marker-\ang] (marker-\ang-L) {};
+                    \node [o-bomb, right=0.1cm of marker-\ang] (marker-\ang-R) {};
+                    \draw [o-aoe] (circle-\ang) circle [radius=2];
+                }
+
+            \node [b-bomb] at (marker-270) {};
+            \foreach \ang in {225, 270, 315, center}
+            \draw [b-aoe] (circle-\ang) circle [radius=2];
+        \end{scope}
+
+        \begin{scope}[every node/.append style={ellipse callout, inner sep=0pt}]
+            \node [heal, every node, callout absolute pointer={(marker-45)}, above right=0.75 of marker-45] {\roleicon{heal}};
+            \node [tank, every node, callout absolute pointer={(marker-90)}, above right=0.75 of marker-90] {\roleicon{tank}};
+            \node [dps, every node, callout absolute pointer={(marker-135)}, above right=0.75 of marker-135] {\roleicon{dps}};
+            \node [dps, every node, callout absolute pointer={(marker-180-L)}, above right=0.75 of marker-180-L] {\roleicon{dps}};
+            \node [dps, every node, callout absolute pointer={(marker-270)}, above right=0.75 of marker-270] {\roleicon{dps}};
+            \node [endat, every node, callout absolute pointer={(marker-0-R)}, above right=0.75 of marker-0-R] {\roleicon{heal}\roleicon{tank}};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{The first Junction Titan arrangement}
+    \label{titan1}
+\end{figure}
+
+\section{Second arrangement}
+
+The second arrangement has two blue markers and six orange markers.  The two blue markers can be anybody without role restriction, so this has to be called out quickly. The east or west side may end up with only two people in the circle because of this.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.4]
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \foreach \ang in {0, 45,...,315}
+            {
+                \coordinate (circle-\ang) at (\ang:3.5);
+                \coordinate (marker-\ang) at (\ang:3);
+            }
+        \coordinate (circle-center) at (0,0);
+
+        \begin{scope}[on background layer]
+            \draw[arena] (0,0) circle [radius=4];
+        \end{scope}
+
+        \begin{scope}
+            \clip (0,0) circle [radius=4];
+
+            \foreach \ang in {0, 180}
+                {
+                    \node [o-bomb] at (marker-\ang) (marker-\ang) {};
+                    \node [o-bomb, left=0.1cm of marker-\ang] (marker-\ang-L) {};
+                    \node [o-bomb, right=0.1cm of marker-\ang] (marker-\ang-R) {};
+                    \draw [o-aoe] (circle-\ang) circle [radius=2];
+                }
+
+            \node [b-bomb] at (marker-90) {};
+            \node [b-bomb] at (marker-270) {};
+            \foreach \ang in {45, 90, 135, 225, 270, 315, center}
+            \draw [b-aoe] (circle-\ang) circle [radius=2];
+        \end{scope}
+
+        \begin{scope}[every node/.append style={ellipse callout, inner sep=0pt}]
+            \node [dps, every node, callout absolute pointer={(marker-180-L)}, above right=0.75 of marker-180-L] {\roleicon{dps}};
+            \node [endat, every node, callout absolute pointer={(marker-0-R)}, above right=0.75 of marker-0-R] {\roleicon{heal}\roleicon{tank}};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{The second Junction Titan arrangement}
+    \label{titan2}
+\end{figure}
+
+\section{Third arrangement}
+
+The third and final arrangement has two blue markers, two yellow markers and four orange markers.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.4]
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \foreach \ang in {0, 45,...,315}
+            {
+                \coordinate (circle-\ang) at (\ang:3.5);
+                \coordinate (marker-\ang) at (\ang:3);
+            }
+        \coordinate (circle-center) at (0,0);
+
+        \begin{scope}[on background layer]
+            \draw[arena] (0,0) circle [radius=4];
+        \end{scope}
+
+        \begin{scope}
+            \clip (0,0) circle [radius=4];
+
+            \foreach \ang in {90}
+                {
+                    \node [o-bomb] at (marker-\ang) (marker-\ang) {};
+                    \node [o-bomb, below=0.1cm of marker-\ang] (marker-\ang-B) {};
+                    \node [o-bomb, above left=0.1cm and -0.2cm of marker-\ang] (marker-\ang-T1) {};
+                    \node [o-bomb, above right=0.1cm and -0.2cm of marker-\ang] (marker-\ang-T2) {};
+                    \draw [o-aoe] (circle-\ang) circle [radius=2];
+                }
+
+            \foreach \ang in {45, 135}
+                {
+                    \node [y-bomb] at (marker-\ang) {};
+                    \draw [y-aoe] (circle-\ang) circle [radius=2];
+                }
+
+            \node [b-bomb] at (marker-225) {};
+            \node [b-bomb] at (marker-315) {};
+            \foreach \ang in {180, 225, 270, 315, 0, center}
+            \draw [b-aoe] (circle-\ang) circle [radius=2];
+        \end{scope}
+
+        \begin{scope}[every node/.append style={ellipse callout, inner sep=0pt}]
+            \node [dps, every node, callout absolute pointer={(marker-135)}, above right=0.75 of marker-135] {\roleicon{dps}};
+            \node [endat, every node, callout absolute pointer={(marker-45)}, above right=0.75 of marker-45] {\roleicon{heal}\roleicon{tank}};
+            \node [dps, every node, callout absolute pointer={(marker-225)}, above right=0.75 of marker-225] {\roleicon{dps}};
+            \node [endat, every node, callout absolute pointer={(marker-315)}, above right=0.75 of marker-315] {\roleicon{heal}\roleicon{tank}};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{The third Junction Titan arrangement}
+    \label{titan3}
+\end{figure}
