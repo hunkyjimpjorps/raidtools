@@ -5,6 +5,8 @@
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
+\usepackage{float}
+%\includeonly{raidtools-o12s-lions}
 
 \hypersetup{linktoc=all,hidelinks}
 \geometry{letterpaper,margin=1in}
@@ -30,50 +32,11 @@
 \maketitle
 \tableofcontents
 
-\input{tikzrules.tex}
-\include{raidtools-o12s-jshiva.tex}
-\include{raidtools-o12s-jtitan.tex}
-\include{raidtools-o12s-classical.tex}
-\chapter{Classical Sculptures}
-\section{Starting position}
-Bring Eden's Promise to the south edge of the arena, with enough room for one group to stand south of her and the other to stand on her opposite side.  Each healer gets a stack marker.
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}[scale=1.5, every pic/.style=transform shape]
-        \clip (-4,-5) rectangle (4, -0.5);
-        \draw[arena] (0,0) circle [radius=4];
-
-        \foreach \letter / \ang / \rad / \c in
-            {A/90/4.5/red,
-                D/180/4.5/purple,
-                C/270/4.5/blue,
-                B/0/4.5/orange,
-                1/135/4.5/red,
-                4/225/4.5/purple,
-                3/315/4.5/blue,
-                2/45/4.5/orange}
-        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
-
-        \node[boss] (boss) at (0,-2.5) {B};
-
-        \node[heal, anchor=105] at (boss.285) (h1) {1};
-        \node[heal, anchor=285] at (boss.105) (h2) {2};
-        \node[tank, right=0cm of h1] (t1) {1};
-        \node[tank, left=0cm of h2] (t2) {2};
-        \node[dps, left=0cm of h1] (d1) {1};
-        \node[dps, below=0cm of h1] (d2) {2};
-        \node[dps, above=0cm of h2] (d3) {3};
-        \node[dps, right=0cm of h2] (d4) {4};
-
-        \pic at (h1) {stack aoe={1cm}};
-        \pic at (h2) {stack aoe={1cm}};
-
-    \end{tikzpicture}
-    \caption{The starting position after bringing the boss south}
-    \label{classicalstart}
-\end{figure}
-
-\section{Laser assignments}
-Every player is tethered to one of the two statues and assigned a number from 1 to 4.
+\newcommand{\sectionbreak}{\clearpage}
+\input{tikzrules}
+\include{raidtools-o12s-jshiva}
+\include{raidtools-o12s-jtitan}
+\include{raidtools-o12s-classical}
+\include{raidtools-o12s-lions}
 
 \end{document}

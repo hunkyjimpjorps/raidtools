@@ -1,0 +1,390 @@
+% !TeX root = ./raidtools-o12s.tex
+
+\chapter{Lions}
+\section{Starting position}
+For this phase, the party will be split up into two groups.  One group will be tethered to the small lions to the east and west, while the other group will be baiting the large lions to the north and south.  The tanks and healers are one group and the DPS are the other; it's random which group is assigned which task.
+
+In the following examples, the tanks and healers have the tethers.
+
+Eden begins the phase with \emph{Rapturous Reach}.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\begin{scope}[node distance=0.5cm]
+			\node[boss] (boss) at (0,0) {B};
+			\node[tank, above=of boss]  (t1) {1};
+			\node[tank, above right=of boss] (t2) {2};
+			\node[heal, left=of boss] (h1) {1};
+			\node[heal, below=of boss] (h2) {2};
+			\node[dps, above left=of boss] (d1) {1};
+			\node[dps, right=of boss] (d2) {2};
+			\node[dps, below right=of boss] (d3) {3};
+			\node[dps, below left=of boss] (d4) {4};
+		\end{scope}
+
+		\foreach \num / \ang in
+			{%
+				1/157.5,
+				2/202.5,
+				3/337.5,
+				4/22.5%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, minimum size=1cm] at (marker-A) (bigadd1) {};
+		\node [add, minimum size=1cm] at (marker-C) (bigadd2) {};
+
+		\foreach \player/\add in
+			{%
+				h1/add3,
+				h2/add1,
+				t1/add2,
+				t2/add4%
+			}
+		\draw[tether] (\add) -- (\player);
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+
+			\path (boss.center) -- pic [sloped, allow upside down, at start] {cone aoe=215} ++(1,0);
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{Tasks are assigned to the two groups}
+	\label{lionsstart}
+
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[scale=1.4, every pic/.style={scale=1.4, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\node[heal] at (h1) {1};
+		\node[dps] at (d1) {1};
+		\node[dps] at (d4) {4};
+
+		\begin{scope}[node distance=0cm]
+			\node[tank, left=of d1]  (t1) {1};
+			\node[tank, above=of d1] (t2) {2};
+			\node[heal, left=of d4] (h2) {2};
+			\node[dps, left=of h1] (d2) {2};
+			\node[dps, below=of d4] (d3) {3};
+		\end{scope}
+
+		\foreach \num / \ang in
+			{%
+				1/157.5,
+				2/202.5,
+				3/337.5,
+				4/22.5%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
+		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
+
+		\foreach \player/\add in
+			{%
+				h1/add3,
+				h2/add1,
+				t1/add2,
+				t2/add4%
+			}
+		\draw[tether] (\add) -- (\player);
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+
+			\path (boss.center) -- pic [sloped, allow upside down, at start] {cone aoe=215} ++(1,0);
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{The party dodges \emph{Rapturous Reach}}
+	\label{lionsrapturous}
+
+\end{figure}
+
+\section{First fire breaths, first baits}
+Each small lion fires a narrow cone at the player it's tethered to, while each large lion drops a puddle on the nearest player to it while firing a wider cone at.
+
+Tethered players go to the numbered marker diagonally across from their lion.  For example, the player with the northeastern lion goes to 4.
+
+Two of the baiting players stand outside the big lion, while the other two wait at the safe spot nearer to the boss.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.6, every pic/.style={scale=1.6, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\foreach \num / \ang in
+			{%
+				1/165,
+				2/195,
+				3/345,
+				4/15%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
+		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
+
+		\node[heal] at (marker-1) (h1) {1};
+		\node[heal] at (marker-3) (h2) {2};
+		\node[tank] at (marker-2) (t1) {1};
+		\node[tank] at (marker-4) (t2) {2};
+		\node[dps, above=0cm of bigadd1] (d1) {1};
+		\node[dps, below=0.75cm of bigadd1] (d2) {2};
+		\node[dps, below=0cm of bigadd2] (d3) {3};
+		\node[dps, above=0.75cm of bigadd2] (d4) {4};
+
+		\foreach \player/\add in
+			{%
+				h1/add3,
+				h2/add1,
+				t1/add2,
+				t2/add4%
+			} {
+				\draw[tether] (\add) -- (\player);
+			}
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+			\foreach \player/\add in
+				{%
+					h1/add3,
+					h2/add1,
+					t1/add2,
+					t2/add4,
+					d1/bigadd1,
+					d3/bigadd2%
+				} \path (\add.center) -- pic [sloped, allow upside down, at start]{cone aoe=30} (\player);
+			\pic at (d1) {circle aoe=1cm};
+			\pic at (d3) {circle aoe=1cm};
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{The party baits the lions correctly}
+	\label{lionsfirstbait}
+
+\end{figure}
+
+\section{Second fire breaths, second baits, knockback}
+The players who baited the first puddles move in to the safe spot, and the players in the safe spot move to the west of the puddle their partner left.  Tethered players stay put.  Everyone uses knockback protection to avoid the knockback, then moves to the safe spot for the attacks that were stocked at the beginning of the phase (not shown).
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.6, every pic/.style={scale=1.6, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\foreach \num / \ang in
+			{%
+				1/165,
+				2/195,
+				3/345,
+				4/15%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
+		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
+
+		\coordinate (xd1) at (d1);
+		\coordinate (xd3) at (d3);
+		\node[heal] at (marker-1) (h1) {1};
+		\node[heal] at (marker-3) (h2) {2};
+		\node[tank] at (marker-2) (t1) {1};
+		\node[tank] at (marker-4) (t2) {2};
+		\node[dps, below=0.75cm of bigadd1] (d1) {1};
+		\node[dps, below left=0.1cm and 1.75cm of xd1] (d2) {2};
+		\node[dps, above=0.75cm  of bigadd2] (d3) {3};
+		\node[dps, above left=0.1cm and 1.75cm of xd3] (d4) {4};
+
+		\foreach \player/\add in
+			{%
+				h1/add3,
+				h2/add1,
+				t1/add2,
+				t2/add4%
+			} {
+				\draw[tether] (\add) -- (\player);
+			}
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+			\foreach \player/\add in
+				{%
+					h1/add3,
+					h2/add1,
+					t1/add2,
+					t2/add4,
+					d2/bigadd1,
+					d4/bigadd2%
+				} \path (\add.center) -- pic [sloped, allow upside down, at start]{cone aoe=30} (\player);
+			\foreach \pos in {xd1, xd3, d2, d4} \pic at (\pos) {circle aoe=1cm};
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{The second fire breaths and puddle are baited}
+	\label{lionssecondbait}
+
+\end{figure}
+
+\section{Third fire breaths, third baits, \emph{Rapturous Reach}}
+After resolving the stocked attacks, the baiting players swap positions again, this time baiting the puddle to the right of the big lion.  Tethered players return to their positions.
+
+After the third round of baiting, Eden finishes off the phase with another \emph{Rapturous Reach}.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=1.6, every pic/.style={scale=1.6, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\foreach \num / \ang in
+			{%
+				1/165,
+				2/195,
+				3/345,
+				4/15%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
+		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
+
+		\coordinate (xd2) at (d2);
+		\coordinate (xd4) at (d4);
+		\node[heal] at (marker-1) (h1) {1};
+		\node[heal] at (marker-3) (h2) {2};
+		\node[tank] at (marker-2) (t1) {1};
+		\node[tank] at (marker-4) (t2) {2};
+		\node[dps, below=0.75cm of bigadd1] (d2) {1};
+		\node[dps, below right=0.1cm and 1.75cm of xd1] (d1) {2};
+		\node[dps, above=0.75cm  of bigadd2] (d4) {3};
+		\node[dps, above right=0.1cm and 1.75cm of xd3] (d3) {4};
+
+		\foreach \player/\add in
+			{%
+				h1/add3,
+				h2/add1,
+				t1/add2,
+				t2/add4%
+			} {
+				\draw[tether] (\add) -- (\player);
+			}
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+			\foreach \player/\add in
+				{%
+					h1/add3,
+					h2/add1,
+					t1/add2,
+					t2/add4,
+					d1/bigadd1,
+					d3/bigadd2%
+				} \path (\add.center) -- pic [sloped, allow upside down, at start]{cone aoe=30} (\player);
+			\foreach \pos in {xd1, xd2, xd3, xd4, d1, d3} \pic at (\pos) {circle aoe=1cm};
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{The third fire breaths and puddle are baited}
+	\label{lionsthirdbait}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[scale=1.6, every pic/.style={scale=1.6, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\node[endat, left=of boss] (g) {G};
+		\foreach \player in {t1, t2, h1, h2, d1, d2, d3, d4} 
+			{
+				\node[startat] at (\player) {};
+				\draw[move, curve to, relative, looseness=0.5] (\player) to (g);
+			}
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+
+			\path (boss.center) -- pic [sloped, allow upside down, at start] {cone aoe=215} ++(1,0);
+			\foreach \pos in {xd1, xd2, xd3, xd4, d1, d3} \pic at (\pos) {circle aoe=1cm};
+		\end{scope}
+
+	\end{tikzpicture}
+	\caption{The party dodges \emph{Rapturous Reach} a second time}
+	\label{lionsrapturousfinish}
+\end{figure}

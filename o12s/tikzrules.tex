@@ -23,7 +23,7 @@
 
 \tikzset{aoe/.style =
         {
-            thick,
+            ultra thick,
             orange,
             pattern={
                     Lines[angle=45, distance=0.5cm, line width=0.25cm]
@@ -41,7 +41,7 @@
 }
 
 \tikzset{cone aoe/.pic = {
-            \draw [preaction={aoe fill}] [aoe] (0,0) -- (#1/2:10) arc (#1:-1*#1:5) -- cycle;
+            \draw [preaction={aoe fill}] [aoe] (0,0) -- (#1/2:10) arc (#1/2:-1/2*#1:10) -- cycle;
         }
 }
 
@@ -131,6 +131,14 @@
         }
 }
 
+\tikzset{add/.style =
+        {
+            endat, 
+            draw=orange,
+            fill=orange!50
+        }
+}
+
 \tikzset{nf/.style = { fill=none } }
 
 \tikzset{move/.style = {
@@ -144,7 +152,6 @@
             line width=2pt,
             purple,
             dotted,
-            -Latex,
             text=black
         }
 }

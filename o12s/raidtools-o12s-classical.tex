@@ -1,1 +1,235 @@
 % !TeX root = ./raidtools-o12s.tex
+
+\chapter{Classical Sculptures}
+\section{Starting position}
+Eden stocks two primal attacks which will not be used immediately.  Bring Eden's Promise to the south edge of the arena, with enough room for one group to stand south of her and the other to stand on her opposite side.  Each healer gets a stack marker.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1.5, every pic/.style=transform shape]
+        \clip (-4,-5) rectangle (4, -0.5);
+        \draw[arena] (0,0) circle [radius=4];
+
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \node[boss, minimum size=2cm] (boss) at (0,-2.5) {B};
+
+        \node[heal, above=0cm of boss] (h1) {1};
+        \node[heal, below=0cm of boss] (h2) {2};
+        \node[tank, right=0cm of h1] (t1) {1};
+        \node[tank, left=0cm of h2] (t2) {2};
+        \node[dps, left=0cm of h1] (d1) {1};
+        \node[dps, above=0cm of h1] (d2) {2};
+        \node[dps, below=0cm of h2] (d3) {3};
+        \node[dps, right=0cm of h2] (d4) {4};
+
+        \pic at (h1) {stack aoe={1cm}};
+        \pic at (h2) {stack aoe={1cm}};
+
+    \end{tikzpicture}
+    \caption{The starting position after bringing the boss south}
+    \label{classicalstart}
+\end{figure}
+
+\section{Laser assignments}
+A statue lands on each of the two healers. Every player is tethered to one of the two statues and assigned a number from 1 to 4.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1.5, every pic/.style=transform shape]
+        \clip (-4,-5) rectangle (4, -0.5);
+        \draw[arena] (0,0) circle [radius=4];
+
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \node[boss, minimum size=2cm] (boss) at (0,-2.5) {B};
+
+        \node[add, above=0cm of boss] (s1) {S1};
+        \node[add, below=0cm of boss] (s2) {S2};
+        \node[endat, below right=0.5cm and 1cm of s1] (g1) {G1};
+        \node[endat, above right=0.5cm and 1cm of s2] (g2) {G2};
+
+        \draw[tether] (s1) -- (g1);
+        \draw[tether] (s2) -- (g2);
+
+    \end{tikzpicture}
+    \caption{Statues drop and tethers are assigned}
+    \label{classicalassignments}
+\end{figure}
+
+\section{\emph{Rapturous Reach} and the first three tethers}
+Eden uses \emph{Rapturous Reach}, covering one half of the arena.  Everybody moves to the safe side, with the players with the \textbf{1} marker aiming the gaze of the statues away from the other six players, then falling back into the group once the laser fires.  The second and third marked players step out, aim the laser and fall back in turn.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1.6, every pic/.style=transform shape]
+        \clip (-4,-5) rectangle (4, -0.5);
+        \draw[arena] (0,0) circle [radius=4];
+
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \node[boss, minimum size=2cm] (boss) at (0,-2.5) {B};
+
+        \node[add, above=0cm of boss] (s1) {S1};
+        \node[add, below=0cm of boss] (s2) {S2};
+        \node[endat, below left=0.5cm and 1cm of s1] (g1) {G1};
+        \node[endat, above left=0.5cm and 1cm of s2] (g2) {G2};
+        \node[endat, above left=0.1cm and 1cm of s1.center] (g1-1) {1};
+        \node[endat, below left=0.1cm and 1cm of s2.center] (g2-1) {1};
+
+        \begin{scope}[every path/.style={tether, -}]
+            \draw (s1) -- (g1);
+            \draw (s2) -- (g2);
+            \draw (s1) -- (g1-1);
+            \draw (s2) -- (g2-1);
+        \end{scope}
+
+        \begin{scope}[on background layer]
+            \clip (0,0) circle [radius=4];
+            \clip (-4,-5) rectangle (4, -0.5);
+            \path (boss.center) -- pic [sloped, allow upside down, at start] {cone aoe=215} ++(1,0);
+            \path (s1.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g1-1);
+            \path (s2.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g2-1);
+        \end{scope}
+
+
+    \end{tikzpicture}
+    \caption{Statues drop and tethers are assigned; lasers are fired at the first player in each group}
+    \label{classicalreach}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1.6, every pic/.style=transform shape]
+        \clip (-4,-5) rectangle (4, -0.5);
+        \draw[arena] (0,0) circle [radius=4];
+
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \node[boss, minimum size=2cm] (boss) at (0,-2.5) {B};
+
+        \node[add, above=0cm of boss] (s1) {S1};
+        \node[add, below=0cm of boss] (s2) {S2};
+        \node[endat, below left=0.5cm and 1cm of s1] (g1) {G1};
+        \node[endat, above left=0.5cm and 1cm of s2] (g2) {G2};
+        \node[endat, left=0cm of g1] (g1-1) {1};
+        \node[endat, left=0cm of g2] (g2-1) {1};
+        \node[endat, above left=0.1cm and 1cm of s1.center] (g1-2) {2};
+        \node[endat, below left=0.1cm and 1cm of s2.center] (g2-2) {2};
+
+        \begin{scope}[every path/.style={tether, -}]
+            \draw (s1) -- (g1);
+            \draw (s2) -- (g2);
+            \draw (s1) -- (g1-2);
+            \draw (s2) -- (g2-2);
+        \end{scope}
+
+        \begin{scope}[every path/.style={move}]
+            \draw (g1) -- (g1-2);
+            \draw (g2) -- (g2-2);
+            \draw (g1-2) -- (g1-1);
+            \draw (g2-2) -- (g2-1);
+        \end{scope}
+
+        \begin{scope}[on background layer]
+            \clip (0,0) circle [radius=4];
+            \clip (-4,-5) rectangle (4, -0.5);
+            \path (s1.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g1-2);
+            \path (s2.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g2-2);
+        \end{scope}
+
+
+    \end{tikzpicture}
+    \caption{The second players rotate in as the first returns to the group; the third players' arrangement is similar}
+    \label{classicalreach2}
+\end{figure}
+
+\section{Final tether, knockback and stocked attack}
+The giant Eden on the south side of the arena will hit either the southwest or southeast side of the arena immediately after the laser is fired at the fourth marked players.  The other six players wait near the impact point to be knocked back.
+
+After the knockback, Eden uses her stocked combination attack from the beginning of the phase, completing the phase.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=1.6, every pic/.style=transform shape]
+        \clip (-4,-5) rectangle (4, -0.5);
+        \draw[arena] (0,0) circle [radius=4];
+
+        \foreach \letter / \ang / \rad / \c in
+            {A/90/4.5/red,
+                D/180/4.5/purple,
+                C/270/4.5/blue,
+                B/0/4.5/orange,
+                1/135/4.5/red,
+                4/225/4.5/purple,
+                3/315/4.5/blue,
+                2/45/4.5/orange}
+        \node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+        \clip (0,0) circle [radius=4];
+        \foreach \ang in {0, 30, ..., 359}
+        \draw [line width=2pt, opacity=0.5, yellow,
+            decorate,
+            decoration={expanding waves, angle=10}]
+        (225:3.75) -- ++(\ang:8);
+
+        \node[boss, minimum size=2cm] (boss) at (0,-2.5) {B};
+
+        \node[add, above=0cm of boss] (s1) {S1};
+        \node[add, below=0cm of boss] (s2) {S2};
+        \node[endat, above right=1cm of marker-4] (g) {G};
+        \node[endat, left=2cm of s1.center] (g1-4) {4};
+        \node[endat, left=2cm of s2.center] (g2-4) {4};
+
+        \begin{scope}[every path/.style={tether, -}]
+            \draw (s1) -- (g1-4);
+            \draw (s2) -- (g2-4);
+        \end{scope}
+
+        \begin{scope}[on background layer]
+            \clip (0,0) circle [radius=4];
+            \clip (-4,-5) rectangle (4, -0.5);
+            \path (s1.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g1-4);
+            \path (s2.center) -- pic [sloped, allow upside down, at start] {line aoe=0.5cm} (g2-4);
+        \end{scope}
+
+
+    \end{tikzpicture}
+    \caption{The fourth players bait their lasers while the rest of the party waits for the knockback}
+    \label{classicalknockback}
+\end{figure}
