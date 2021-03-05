@@ -207,7 +207,7 @@ Two of the baiting players stand outside the big lion, while the other two wait 
 \end{figure}
 
 \section{Second fire breaths, second baits, knockback}
-The players who baited the first puddles move in to the safe spot, and the players in the safe spot move to the west of the puddle their partner left.  Tethered players stay put.  Everyone uses knockback protection to avoid the knockback, then moves to the safe spot for the attacks that were stocked at the beginning of the phase (not shown).
+The players who baited the first puddles move in to the safe spot, and the players in the safe spot move to the west of the puddle their partner left.  Tethered players stay put.  Everyone uses knockback protection to avoid the knockback, then moves to the safe spot for the attacks that were stocked at the beginning of the phase.
 
 \begin{figure}[h]
 	\centering
@@ -276,6 +276,76 @@ The players who baited the first puddles move in to the safe spot, and the playe
 	\end{tikzpicture}
 	\caption{The second fire breaths and puddle are baited}
 	\label{lionssecondbait}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[scale=1.6, every pic/.style={scale=1.6, transform shape}]
+		\foreach \letter / \ang / \rad / \c in
+			{A/90/3.5/red,
+				D/180/3.5/purple,
+				C/270/3.5/blue,
+				B/0/3.5/yellow,
+				1/140/2/red,
+				4/220/2/purple,
+				3/320/2/blue,
+				2/40/2/yellow}
+		\node[marker, color=\c, fill, fill opacity=0.25] at (\ang:\rad) (marker-\letter) {\textbf\letter};
+
+		\node[boss] (boss) at (0,0) {B};
+
+		\foreach \num / \ang in
+			{%
+				1/165,
+				2/195,
+				3/345,
+				4/15%
+			}
+		\node [add] at (\ang:3.75) (add\num) {\num};
+
+		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
+		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
+
+		\coordinate (xd2) at (d2);
+		\coordinate (xd4) at (d4);
+		\node[endat, above=3cm of boss] (g1) {G};
+		\node[endat, below=3cm of boss] (g2) {G};
+
+		\foreach \player/\add in
+			{%
+				g1/add3,
+				g2/add1,
+				g1/add2,
+				g2/add4%
+			} {
+				\draw[tether] (\add) -- (\player);
+			}
+
+		\begin{scope}[on background layer]
+			\draw[arena] (0,0) circle [radius=4];
+			\clip (0,0) circle [radius=4];
+			\foreach \pos in {xd1, xd3, xd2, xd4} \pic at (\pos) {circle aoe=1cm};
+			\pic at (boss) {circle aoe=2cm};
+			\path (-0.75,0) -- pic [sloped, allow upside down, at start]{line aoe=10} (-2,0);
+			\path (0.75,0) -- pic [sloped, allow upside down, at start]{line aoe=10} (2,0);
+		\end{scope}
+
+		\foreach \player in {t1, h1, d2}
+		{
+			\node[startat] at (\player) {};
+			\draw[move, curve to, relative, looseness=0.5] (\player) to (g1);
+		}
+
+		\foreach \player in {t2, h2, d4}
+		{
+			\node[startat] at (\player) {};
+			\draw[move, curve to, relative, looseness=0.5] (\player) to (g2);
+		}
+
+
+	\end{tikzpicture}
+	\caption{After the knockback, Eden uses the stocked attacks; in this example, Leviathan and Ramuh}
+	\label{lionsstock}
 
 \end{figure}
 
@@ -312,8 +382,6 @@ After the third round of baiting, Eden finishes off the phase with another \emph
 		\node [add, below=0cm of marker-A, minimum size=1cm] at (marker-A) (bigadd1) {B1};
 		\node [add, above=0cm of marker-C, minimum size=1cm] at (marker-C) (bigadd2) {B2};
 
-		\coordinate (xd2) at (d2);
-		\coordinate (xd4) at (d4);
 		\node[heal] at (marker-1) (h1) {1};
 		\node[heal] at (marker-3) (h2) {2};
 		\node[tank] at (marker-2) (t1) {1};
@@ -370,7 +438,7 @@ After the third round of baiting, Eden finishes off the phase with another \emph
 		\node[boss] (boss) at (0,0) {B};
 
 		\node[endat, left=of boss] (g) {G};
-		\foreach \player in {t1, t2, h1, h2, d1, d2, d3, d4} 
+		\foreach \player in {t1, t2, h1, h2, d1, d2, d3, d4}
 			{
 				\node[startat] at (\player) {};
 				\draw[move, curve to, relative, looseness=0.5] (\player) to (g);
